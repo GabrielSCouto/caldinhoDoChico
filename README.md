@@ -6,4 +6,4 @@ Segue o diagrama de casos de uso do projeto:
 
 Segue o diagrama de classes do projeto:
 
-<img src="" alt="Diagrama de classes">
+<img src="Diagrama UML (Caldinho do Chico).jpg" alt="Diagrama de classes">
