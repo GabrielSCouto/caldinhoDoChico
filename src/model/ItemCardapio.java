@@ -1,5 +1,7 @@
-// Classe ItemCardapio
-class ItemCardapio {
+package model;
+
+// Classe model.ItemCardapio
+public class ItemCardapio {
     private int idItem;
     private String nome;
     private String descricao;

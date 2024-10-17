@@ -1,5 +1,7 @@
-        // Classe Mesa
-class Mesa {
+package model;
+
+// Classe model.Mesa
+public class Mesa {
     private int numero;
     private boolean livre;
     private boolean pagamentoEfetuado;

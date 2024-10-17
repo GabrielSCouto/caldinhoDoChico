@@ -1,8 +1,10 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-class Pedido {
+public class Pedido {
     private int idPedido;
     private Date dataHora;
     private String status;  // "Em andamento", "Concluido"

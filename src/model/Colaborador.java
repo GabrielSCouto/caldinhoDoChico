@@ -1,9 +1,11 @@
+package model;
+
 import java.util.List;
 
-// Classe Colaborador
-class Colaborador {
+// Classe model.Colaborador
+public class Colaborador {
     public void selecionarMesa(Mesa mesa) {
-        System.out.println("Mesa selecionada: " + mesa.getNumero());
+        System.out.println("model.Mesa selecionada: " + mesa.getNumero());
     }
 
     public void itemCardapio(ItemCardapio item) {
@@ -12,7 +14,7 @@ class Colaborador {
 
     public void visualizarSituacaoMesa(Mesa mesa) {
         String status = mesa.isLivre() ? "Livre" : "Ocupada";
-        System.out.println("Mesa " + mesa.getNumero() + " está " + status);
+        System.out.println("model.Mesa " + mesa.getNumero() + " está " + status);
     }
 
     public void gerarRelatorioPedidos(List<Pedido> pedidos) {
