@@ -30,7 +30,7 @@ public class Menu {
         String opcao;
 
         do {
-            System.out.println("\n--- view.Menu do Colaborador ---");
+            System.out.println("\n--- Menu do Colaborador ---");
             System.out.println("1. Selecionar Mesa para ocupar");
             System.out.println("2. Visualizar Situação das Mesas");
             System.out.println("3. Fazer Pedido");
