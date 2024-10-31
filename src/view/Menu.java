@@ -38,7 +38,8 @@ public class Menu {
             System.out.println("5. Efetuar Pagamento");
             System.out.println("6. Gerenciar Cardápio");
             System.out.println("7. Gerar Relatório de Pedidos");
-            System.out.println("8. Sair\n");
+            System.out.println("8. Gerenciar pedidos");
+            System.out.println("9. Sair\n");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextLine();
 
@@ -176,11 +177,14 @@ public class Menu {
                     break;
 
                 case "8":
+                    Pedido.gerenciarPedido(scanner,pedidos,cardapio);
+                    break;
+                case "9":
                     colaborador.sair();
                     break;
 
                 default:
-                    System.out.println("Opção inválida.");
+                    break;
             }
         } while (!opcao.equals("8"));
 
