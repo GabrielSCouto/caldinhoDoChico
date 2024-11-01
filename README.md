@@ -1,4 +1,4 @@
-O projeto Caldinho do Chico busca desenvolver um simples sistema de gerenciamento e atendimento de um restaurante. Nele, é possível controlar os pedidos, processar pagamentos e alterar status de disponibilidade das mesas reservadas.
+O projeto Caldinho do Chico busca desenvolver um simples sistema de gerenciamento e atendimento de um restaurante. Nele, é possível controlar os pedidos, processar pagamentos e alterar status de disponibilidade das mesas reservadas. Nele utilizamos conexão com o banco de dados MySql para manter registrados os dados das operações no programa. 
 
 Segue o diagrama de casos de uso do projeto:
 
