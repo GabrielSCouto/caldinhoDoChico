@@ -63,10 +63,10 @@ public class Pedido {
         System.out.println("2. Remover Item do Pedido");
         System.out.println("3. Apagar Pedido");
         System.out.print("Escolha uma opção: ");
-        String opcao = scanner.nextLine();
+        int opcao = scanner.nextInt();
 
         switch (opcao) {
-            case "1":
+            case 1:
                 System.out.println("Itens disponíveis no cardápio:");
                 for (ItemCardapio item : cardapio) {
                     System.out.println(item.getIdItem() + ". " + item.getNome() + " - R$" + item.getPreco());
@@ -81,7 +81,7 @@ public class Pedido {
                 }
                 break;
 
-            case "2":
+            case 2:
                 System.out.println("Itens no pedido:");
                 listarItens();
                 System.out.print("Digite o ID do item para remover: ");
@@ -94,7 +94,7 @@ public class Pedido {
                 }
                 break;
 
-            case "3":
+            case 3:
                 pedidos.remove(pedido);
                 System.out.println("Pedido apagado com sucesso.");
                 break;

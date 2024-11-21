@@ -2,10 +2,9 @@ package model;
 
 import java.util.List;
 
-// Classe model.Colaborador
 public class Colaborador {
     public void selecionarMesa(Mesa mesa) {
-        System.out.println("model.Mesa selecionada: " + mesa.getNumero());
+        System.out.println("Mesa selecionada: " + mesa.getNumMesa());
     }
 
     public void itemCardapio(ItemCardapio item) {
@@ -14,7 +13,7 @@ public class Colaborador {
 
     public void visualizarSituacaoMesa(Mesa mesa) {
         String status = mesa.isLivre() ? "Livre" : "Ocupada";
-        System.out.println("model.Mesa " + mesa.getNumero() + " está " + status);
+        System.out.println("Mesa " + mesa.getNumMesa() + " está " + status);
     }
 
     public void gerarRelatorioPedidos(List<Pedido> pedidos) {

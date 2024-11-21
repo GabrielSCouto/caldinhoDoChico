@@ -27,5 +27,7 @@ public class Main {
                 "      ░        ░ ░     ░ ░       ░  ░  ░ ░  ░ ░          ░ ░       \n" +
                 "    ░                  ░                    ░                      \n");
         Menu.menu();
+
+
     }
 }
