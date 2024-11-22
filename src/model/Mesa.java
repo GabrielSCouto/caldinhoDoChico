@@ -24,6 +24,8 @@ public class Mesa {
         this.livre = livre;
     }
 
+
+    //MUDAR PARA PEDIDO???
     public void efetuarPagamento() {
         if (!pagamentoEfetuado) {
             System.out.println("Pagamento efetuado (ou mesa sem pedidos).");

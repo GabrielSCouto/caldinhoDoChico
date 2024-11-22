@@ -9,12 +9,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+//importado pra adicao manual de mesas mesas.add funcionar
+import static model.Pedido.mesas;
+//esses to tentando saber pq da erro ainda (DESCOBRI, TEM Q DEIXAR PUBLIC)
+import static model.ItemCardapio.cardapio;
+import static model.Pedido.pedidos;
+
 public class Menu {
     public static void menu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
-        List<Mesa> mesas = new ArrayList<>();
-        List<ItemCardapio> cardapio = new ArrayList<>();
-        List<Pedido> pedidos = new ArrayList<>();
+//        List<Mesa> mesas = new ArrayList<>();
+//        List<ItemCardapio> cardapio = new ArrayList<>();
+//        List<Pedido> pedidos = new ArrayList<>();
 
         // Criando algumas mesas iniciais
         mesas.add(new Mesa(1));
@@ -41,6 +47,8 @@ public class Menu {
         Colaborador colaborador = new Colaborador();
         String opcao;
 
+
+        //IMPRIME MENU
         do {
             System.out.println("\n--- Menu do Colaborador ---");
             System.out.println("1. Selecionar Mesa para ocupar");
@@ -61,6 +69,7 @@ public class Menu {
                     System.out.print("Digite o número da mesa para ocupar: \n");
                     int numMesa1 = scanner.nextInt();
                     DatabaseInsertExample.ocuparMesa(numMesa1);
+                    scanner.nextLine();
                     break;
                 case "2":
                     DatabaseInsertExample.listarDataMesa();
@@ -68,35 +77,40 @@ public class Menu {
 
                 case "3":
                     System.out.print("Digite o número da mesa para fazer pedido: ");
-                    int numMesa2 = scanner.nextInt();
-                    Mesa mesaSelecionada1 = mesas.stream().filter(m -> m.getNumero() == numMesa2).findFirst().orElse(null);
-                    if (mesaSelecionada1 != null && !mesaSelecionada1.isLivre()) {
-                        Pedido pedido = new Pedido(pedidos.size() + 1, new Date(), "Em andamento");
-                        System.out.println("Itens no cardápio:");
-                        DatabaseInsertExample.listarDataCardapio();
-                        System.out.print("Digite o ID do item para adicionar ao pedido: ");
-                        int idItem = scanner.nextInt();
-                        ItemCardapio itemPedido = cardapio.stream().filter(i -> i.getIdItem() == idItem).findFirst().orElse(null);
-                        if (itemPedido != null) {
-                            pedido.adicionarPedido(itemPedido);
-                            pedidos.add(pedido);
-                        } else {
-                            System.out.println("Item não encontrado.");
-                        }
-                    } else {
-                        System.out.println("Mesa não está ocupada ou não encontrada.");
-                    }
+
+                    Pedido.fazerPedido();
+//                    int numMesa2 = scanner.nextInt();
+//                    Mesa mesaSelecionada1 = mesas.stream().filter(m -> m.getNumero() == numMesa2).findFirst().orElse(null);
+//                    if (mesaSelecionada1 != null && !mesaSelecionada1.isLivre()) {
+//                        Pedido pedido = new Pedido(pedidos.size() + 1, new Date(), "Em andamento");
+//                        System.out.println("Itens no cardápio:");
+//                        DatabaseInsertExample.listarDataCardapio();
+//                        System.out.print("Digite o ID do item para adicionar ao pedido: ");
+//                        int idItem = scanner.nextInt();
+//                        ItemCardapio itemPedido = cardapio.stream().filter(i -> i.getIdItem() == idItem).findFirst().orElse(null);
+//                        if (itemPedido != null) {
+//                            pedido.adicionarPedido(itemPedido);
+//                            pedidos.add(pedido);
+//                        } else {
+//                            System.out.println("Item não encontrado.");
+//                        }
+//                    } else {
+//                        System.out.println("Mesa não está ocupada ou não encontrada.");
+//                    }
                     break;
 
                 case "4":
                     System.out.print("Digite o número do pedido para enviar para cozinha: ");
-                    int numPedido = scanner.nextInt();
-                    Pedido pedido = pedidos.stream().filter(p -> p.getIdPedido() == numPedido).findFirst().orElse(null);
-                    if (pedido != null) {
-                        System.out.println("Pedido enviado para a cozinha.");
-                    } else {
-                        System.out.println("Pedido não encontrado.");
-                    }
+
+                    Pedido.enviarCozinha();
+
+//                    int numPedido = scanner.nextInt();
+//                    Pedido pedido = pedidos.stream().filter(p -> p.getIdPedido() == numPedido).findFirst().orElse(null);
+//                    if (pedido != null) {
+//                        System.out.println("Pedido enviado para a cozinha.");
+//                    } else {
+//                        System.out.println("Pedido não encontrado.");
+//                    }
                     break;
 
                 case "5":
@@ -111,36 +125,38 @@ public class Menu {
                     System.out.println("2. Remover Item");
                     System.out.println("3. Listar Cardápio\n");
                     System.out.print("Escolha uma opção: ");
-                    String opcaoCardapio = scanner.nextLine();
 
-                    switch (opcaoCardapio) {
-                        case "1":
-                            System.out.print("Digite o nome do item: ");
-                            String nome = scanner.next();
-                            System.out.print("Digite a descrição do item: ");
-                            String descricao = scanner.next();
-                            System.out.print("Digite o preço do item: ");
-                            double preco = scanner.nextDouble();
-                            cardapio.add(new ItemCardapio(cardapio.size() + 1, nome, descricao, preco));
-                            DatabaseInsertExample.insertDataCardapio(0,nome, descricao, preco);
-                            System.out.println("Item adicionado ao cardápio.");
-                            scanner.nextLine();
-                            break;
-
-                        case "2":
-                            DatabaseInsertExample.listarDataCardapio();
-                            System.out.print("Digite o ID do item para remover: (caso não haja nenhum, clique 0): ");
-                            int idItem = scanner.nextInt();
-                            if (idItem == 0){
-                                break;
-                            } else {
-                                DatabaseInsertExample.removeDataCardapio(idItem);
-                                scanner.nextLine();
-                            }
-                            break;
-                        case "3":
-                            DatabaseInsertExample.listarDataCardapio();
-                    }
+                    ItemCardapio.gerenciarCardapio();
+//                    String opcaoCardapio = scanner.nextLine();
+//
+//                    switch (opcaoCardapio) {
+//                        case "1":
+//                            System.out.print("Digite o nome do item: ");
+//                            String nome = scanner.next();
+//                            System.out.print("Digite a descrição do item: ");
+//                            String descricao = scanner.next();
+//                            System.out.print("Digite o preço do item: ");
+//                            double preco = scanner.nextDouble();
+//                            cardapio.add(new ItemCardapio(cardapio.size() + 1, nome, descricao, preco));
+//                            DatabaseInsertExample.insertDataCardapio(0,nome, descricao, preco);
+//                            System.out.println("Item adicionado ao cardápio.");
+//                            scanner.nextLine();
+//                            break;
+//
+//                        case "2":
+//                            DatabaseInsertExample.listarDataCardapio();
+//                            System.out.print("Digite o ID do item para remover: (caso não haja nenhum, clique 0): ");
+//                            int idItem = scanner.nextInt();
+//                            if (idItem == 0){
+//                                break;
+//                            } else {
+//                                DatabaseInsertExample.removeDataCardapio(idItem);
+//                                scanner.nextLine();
+//                            }
+//                            break;
+//                        case "3":
+//                            DatabaseInsertExample.listarDataCardapio();
+//                    }
                     break;
 
                 case "7":

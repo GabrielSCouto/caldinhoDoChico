@@ -1,7 +1,20 @@
 package model;
 
+import dataBase.DatabaseInsertExample;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 // Classe model.ItemCardapio
 public class ItemCardapio {
+    static Scanner scanner = new Scanner(System.in);
+
+    //estava em menu
+    public static List<ItemCardapio> cardapio = new ArrayList<>();
+
+
     private int idItem;
     private String nome;
     private String descricao;
@@ -36,5 +49,40 @@ public class ItemCardapio {
 
     public void alterarDescricao(String novaDescricao) {
         this.descricao = novaDescricao;
+    }
+
+
+    //switch 6 no menu
+    public static void gerenciarCardapio() throws SQLException {
+        String opcaoCardapio = scanner.nextLine();
+
+        switch (opcaoCardapio) {
+            case "1":
+                System.out.print("Digite o nome do item: ");
+                String nome = scanner.next();
+                System.out.print("Digite a descrição do item: ");
+                String descricao = scanner.next();
+                System.out.print("Digite o preço do item: ");
+                double preco = scanner.nextDouble();
+                cardapio.add(new ItemCardapio(cardapio.size() + 1, nome, descricao, preco));
+                DatabaseInsertExample.insertDataCardapio(0,nome, descricao, preco);
+                System.out.println("Item adicionado ao cardápio.");
+                scanner.nextLine();
+                break;
+
+            case "2":
+                DatabaseInsertExample.listarDataCardapio();
+                System.out.print("Digite o ID do item para remover: (caso não haja nenhum, clique 0): ");
+                int idItem = scanner.nextInt();
+                if (idItem == 0){
+                    break;
+                } else {
+                    DatabaseInsertExample.removeDataCardapio(idItem);
+                    scanner.nextLine();
+                }
+                break;
+            case "3":
+                DatabaseInsertExample.listarDataCardapio();
+        }
     }
 }

@@ -1,6 +1,8 @@
 package model;
 
+import dataBase.DatabaseInsertExample;
 import view.Menu;
+import model.Mesa;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,11 +10,43 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import static model.ItemCardapio.cardapio;
+
 public class Pedido {
+    static Scanner scanner = new Scanner(System.in);
+
     private int idPedido;
     private Date dataHora;
     private String status;  // "Em andamento", "Concluido"
     private static List<ItemCardapio> itens;
+
+    // estavam em MENU:
+    public static List<Mesa> mesas = new ArrayList<>();
+    public static List<Pedido> pedidos = new ArrayList<>();
+
+    //estavam e menu:
+//    // Criando algumas mesas iniciais
+//        mesas.add(new Mesa(1));
+//        mesas.add(new Mesa(2));
+//        mesas.add(new Mesa(3));
+//        mesas.add(new Mesa(4));
+//        mesas.add(new Mesa(5));
+//        mesas.add(new Mesa(6));
+//        mesas.add(new Mesa(7));
+//        mesas.add(new Mesa(8));
+//        mesas.add(new Mesa(9));
+//        mesas.add(new Mesa(10));
+//        DatabaseInsertExample.insertDataMesa(1,"livre");
+//        DatabaseInsertExample.insertDataMesa(2,"livre");
+//        DatabaseInsertExample.insertDataMesa(3,"livre");
+//        DatabaseInsertExample.insertDataMesa(4,"livre");
+//        DatabaseInsertExample.insertDataMesa(5,"livre");
+//        DatabaseInsertExample.insertDataMesa(6,"livre");
+//        DatabaseInsertExample.insertDataMesa(7,"livre");
+//        DatabaseInsertExample.insertDataMesa(8,"livre");
+//        DatabaseInsertExample.insertDataMesa(9,"livre");
+//        DatabaseInsertExample.insertDataMesa(10,"livre");
+
 
     public Pedido(int idPedido, Date dataHora, String status) {
         this.idPedido = idPedido;
@@ -33,6 +67,7 @@ public class Pedido {
         return itens;
     }
 
+    //PODE SER MESMO METODO DE FAZER PEDIDO????
     public void adicionarPedido(ItemCardapio item) {
         itens.add(item);
         System.out.println("Item adicionado ao pedido: " + item.getNome());
@@ -104,4 +139,40 @@ public class Pedido {
                 System.out.println("Opção inválida.");
         }
     }
+
+    //switch 3 no menu
+    public static void fazerPedido() throws SQLException {
+        int numMesa2 = scanner.nextInt();
+        Mesa mesaSelecionada1 = mesas.stream().filter(m -> m.getNumero() == numMesa2).findFirst().orElse(null);
+        if (mesaSelecionada1 != null && !mesaSelecionada1.isLivre()) {
+            Pedido pedido = new Pedido(pedidos.size() + 1, new Date(), "Em andamento");
+            System.out.println("Itens no cardápio:");
+            DatabaseInsertExample.listarDataCardapio();
+            System.out.print("Digite o ID do item para adicionar ao pedido: ");
+            int idItem = scanner.nextInt();
+            ItemCardapio itemPedido = cardapio.stream().filter(i -> i.getIdItem() == idItem).findFirst().orElse(null);
+            if (itemPedido != null) {
+                pedido.adicionarPedido(itemPedido);
+                pedidos.add(pedido);
+            } else {
+                System.out.println("Item não encontrado.");
+            }
+        } else {
+            System.out.println("Mesa não está ocupada ou não encontrada.");
+        }
+    }
+
+    //switch 4 no menu
+    public static void enviarCozinha(){
+        int numPedido = scanner.nextInt();
+        Pedido pedido = pedidos.stream().filter(p -> p.getIdPedido() == numPedido).findFirst().orElse(null);
+        if (pedido != null) {
+            System.out.println("Pedido enviado para a cozinha.");
+        } else {
+            System.out.println("Pedido não encontrado.");
+        }
+
+    }
+
+
 }

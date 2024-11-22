@@ -65,6 +65,7 @@ public class DatabaseInsertExample {
         }
     }
 
+    //exception inserida
     public static void listarDataCardapio() throws SQLException {
         String query = "select * from itemcardapio";
 
