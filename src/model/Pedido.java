@@ -2,14 +2,11 @@ package model;
 
 import view.Menu;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import model.Mesa;
-
-import static model.ItemCardapio.cardapio;
-import static model.Mesa.mesas;
 
 public class Pedido {
     private int idPedido;
@@ -36,32 +33,6 @@ public class Pedido {
         return itens;
     }
 
-
-    public  static void fazerPedido(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite o número da mesa para fazer pedido: ");
-        numMesa = scanner.nextInt();
-        mesaSelecionada = mesas.stream().filter(m -> m.getNumMesa() == numMesa).findFirst().orElse(null);
-        if (mesaSelecionada != null && !mesaSelecionada.isLivre()) {
-            Pedido pedido = new Pedido(pedidos.size() + 1, new Date(), "Em andamento");
-            System.out.println("Itens no cardápio:");
-            for (ItemCardapio item : cardapio) {
-                System.out.println(item.getIdItem() + ". " + item.getNome() + " - R$" + item.getPreco());
-            }
-            System.out.print("Digite o ID do item para adicionar ao pedido: ");
-            int idItem = scanner.nextInt();
-            ItemCardapio itemPedido = cardapio.stream().filter(i -> i.getIdItem() == idItem).findFirst().orElse(null);
-            if (itemPedido != null) {
-                pedido.adicionarPedido(itemPedido);
-                pedidos.add(pedido);
-            } else {
-                System.out.println("Item não encontrado.");
-            }
-        } else {
-            System.out.println("Mesa não está ocupada ou não encontrada.");
-        }
-        scanner.close();
-    }
     public void adicionarPedido(ItemCardapio item) {
         itens.add(item);
         System.out.println("Item adicionado ao pedido: " + item.getNome());
@@ -78,7 +49,7 @@ public class Pedido {
         }
     }
 
-    public static void gerenciarPedido(Scanner scanner, List<Pedido> pedidos, List<ItemCardapio> cardapio) {
+    public static void gerenciarPedido(Scanner scanner, List<Pedido> pedidos, List<ItemCardapio> cardapio) throws SQLException {
         System.out.print("Digite o número do pedido que deseja gerenciar: ");
         int idPedido = scanner.nextInt();
         Pedido pedido = pedidos.stream().filter(p -> p.getIdPedido() == idPedido).findFirst().orElse(null);
@@ -93,10 +64,10 @@ public class Pedido {
         System.out.println("2. Remover Item do Pedido");
         System.out.println("3. Apagar Pedido");
         System.out.print("Escolha uma opção: ");
-        int opcao = scanner.nextInt();
+        String opcao = scanner.nextLine();
 
         switch (opcao) {
-            case 1:
+            case "1":
                 System.out.println("Itens disponíveis no cardápio:");
                 for (ItemCardapio item : cardapio) {
                     System.out.println(item.getIdItem() + ". " + item.getNome() + " - R$" + item.getPreco());
@@ -111,7 +82,7 @@ public class Pedido {
                 }
                 break;
 
-            case 2:
+            case "2":
                 System.out.println("Itens no pedido:");
                 listarItens();
                 System.out.print("Digite o ID do item para remover: ");
@@ -124,7 +95,7 @@ public class Pedido {
                 }
                 break;
 
-            case 3:
+            case "3":
                 pedidos.remove(pedido);
                 System.out.println("Pedido apagado com sucesso.");
                 break;
@@ -132,18 +103,5 @@ public class Pedido {
             default:
                 System.out.println("Opção inválida.");
         }
-    }
-
-    public static void enviarCozinha(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite o número do pedido para enviar para cozinha: ");
-        int numPedido = scanner.nextInt();
-        Pedido pedido = pedidos.stream().filter(p -> p.getIdPedido() == numPedido).findFirst().orElse(null);
-        if (pedido != null) {
-            System.out.println("Pedido enviado para a cozinha.");
-        } else {
-            System.out.println("Pedido não encontrado.");
-        }
-        scanner.close();
     }
 }
