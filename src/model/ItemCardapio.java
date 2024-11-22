@@ -59,9 +59,9 @@ public class ItemCardapio {
         switch (opcaoCardapio) {
             case "1":
                 System.out.print("Digite o nome do item: ");
-                String nome = scanner.next();
+                String nome = scanner.nextLine();
                 System.out.print("Digite a descrição do item: ");
-                String descricao = scanner.next();
+                String descricao = scanner.nextLine();
                 System.out.print("Digite o preço do item: ");
                 double preco = scanner.nextDouble();
                 cardapio.add(new ItemCardapio(cardapio.size() + 1, nome, descricao, preco));

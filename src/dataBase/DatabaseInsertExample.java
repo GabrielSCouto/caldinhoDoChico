@@ -4,11 +4,9 @@ import java.sql.*;
 
 public class DatabaseInsertExample {
 
-
     private static final String URL = "jdbc:mariadb://localhost:3306/caldinho_db";
     private static final String USER = "root";
     private static final String PASSWORD = "";
-
 
     public static Connection connect() {
         try {
@@ -20,7 +18,6 @@ public class DatabaseInsertExample {
             return null;
         }
     }
-
 
     public static void insertDataCardapio(int idItem, String nome, String descricao, double preco) {
         String query = "insert into itemcardapio values (?,?,?,?) ";
@@ -65,7 +62,6 @@ public class DatabaseInsertExample {
         }
     }
 
-    //exception inserida
     public static void listarDataCardapio() throws SQLException {
         String query = "select * from itemcardapio";
 
@@ -73,25 +69,25 @@ public class DatabaseInsertExample {
             assert connection != null;
             try (PreparedStatement statement = connection.prepareStatement(query);
 
-                ResultSet resultSet = statement.executeQuery()) {
+                 ResultSet resultSet = statement.executeQuery()) {
 
-                    System.out.println("Itens do Cardápio:");
+                System.out.println("Itens do Cardápio:");
+                System.out.println("-----------------------------------------");
+
+                while (resultSet.next()) {
+                    int idItem = resultSet.getInt("idItem");
+                    String nome = resultSet.getString("nome");
+                    String descricao = resultSet.getString("descricao");
+                    double preco = resultSet.getDouble("preco");
+
+                    System.out.printf("ID: %d\nNome: %s\nDescrição: %s\nPreço: %.2f\n", idItem, nome, descricao, preco);
                     System.out.println("-----------------------------------------");
-
-                    while (resultSet.next()) {
-                        int idItem = resultSet.getInt("idItem");
-                        String nome = resultSet.getString("nome");
-                        String descricao = resultSet.getString("descricao");
-                        double preco = resultSet.getDouble("preco");
-
-                        System.out.printf("ID: %d\nNome: %s\nDescrição: %s\nPreço: %.2f\n", idItem, nome, descricao, preco);
-                        System.out.println("-----------------------------------------");
-                    }
                 }
-            } catch (SQLException e) {
-                System.out.println("Erro ao listar itens do cardápio: " + e.getMessage());
             }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar itens do cardápio: " + e.getMessage());
         }
+    }
 
     public static void insertDataMesa(int numero, String livre) {
         String query = "insert into mesa values (?,?) ";
@@ -157,7 +153,7 @@ public class DatabaseInsertExample {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            System.out.println("Erro ao alterar dados: " + e.getMessage());
         }
     }
 
@@ -178,7 +174,8 @@ public class DatabaseInsertExample {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            System.out.println("Erro ao alterar dados: " + e.getMessage());
         }
     }
+
 }
