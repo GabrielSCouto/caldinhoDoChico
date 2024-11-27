@@ -1,6 +1,8 @@
 package model;
 
-import dataBase.DatabaseInsertExample;
+import dataBase.DataBaseConnection;
+import dataBase.*;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -65,24 +67,24 @@ public class ItemCardapio {
                 System.out.print("Digite o preço do item: ");
                 double preco = scanner.nextDouble();
                 cardapio.add(new ItemCardapio(cardapio.size() + 1, nome, descricao, preco));
-                DatabaseInsertExample.insertDataCardapio(0,nome, descricao, preco);
+                InsertData.insertDataCardapio(0,nome, descricao, preco);
                 System.out.println("Item adicionado ao cardápio.");
                 scanner.nextLine();
                 break;
 
             case "2":
-                DatabaseInsertExample.listarDataCardapio();
+                ListData.listarDataCardapio();
                 System.out.print("Digite o ID do item para remover: (caso não haja nenhum, clique 0): ");
                 int idItem = scanner.nextInt();
                 if (idItem == 0){
                     break;
                 } else {
-                    DatabaseInsertExample.removeDataCardapio(idItem);
+                    RemoveData.removeDataCardapio(idItem);
                     scanner.nextLine();
                 }
                 break;
             case "3":
-                DatabaseInsertExample.listarDataCardapio();
+                ListData.listarDataCardapio();
         }
     }
 }

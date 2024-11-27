@@ -1,8 +1,8 @@
 package model;
 
-import dataBase.DatabaseInsertExample;
+import dataBase.DataBaseConnection;
+import dataBase.*;
 import view.Menu;
-import model.Mesa;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static model.ItemCardapio.cardapio;
+
 
 public class Pedido {
     static Scanner scanner = new Scanner(System.in);
@@ -23,29 +24,6 @@ public class Pedido {
     // estavam em MENU:
     public static List<Mesa> mesas = new ArrayList<>();
     public static List<Pedido> pedidos = new ArrayList<>();
-
-    //estavam e menu:
-//    // Criando algumas mesas iniciais
-//        mesas.add(new Mesa(1));
-//        mesas.add(new Mesa(2));
-//        mesas.add(new Mesa(3));
-//        mesas.add(new Mesa(4));
-//        mesas.add(new Mesa(5));
-//        mesas.add(new Mesa(6));
-//        mesas.add(new Mesa(7));
-//        mesas.add(new Mesa(8));
-//        mesas.add(new Mesa(9));
-//        mesas.add(new Mesa(10));
-//        DatabaseInsertExample.insertDataMesa(1,"livre");
-//        DatabaseInsertExample.insertDataMesa(2,"livre");
-//        DatabaseInsertExample.insertDataMesa(3,"livre");
-//        DatabaseInsertExample.insertDataMesa(4,"livre");
-//        DatabaseInsertExample.insertDataMesa(5,"livre");
-//        DatabaseInsertExample.insertDataMesa(6,"livre");
-//        DatabaseInsertExample.insertDataMesa(7,"livre");
-//        DatabaseInsertExample.insertDataMesa(8,"livre");
-//        DatabaseInsertExample.insertDataMesa(9,"livre");
-//        DatabaseInsertExample.insertDataMesa(10,"livre");
 
 
     public Pedido(int idPedido, Date dataHora, String status) {
@@ -111,6 +89,7 @@ public class Pedido {
                 int idItemAdicionar = scanner.nextInt();
                 ItemCardapio itemAdicionar = cardapio.stream().filter(i -> i.getIdItem() == idItemAdicionar).findFirst().orElse(null);
                 if (itemAdicionar != null) {
+                    assert pedido != null;
                     pedido.adicionarPedido(itemAdicionar);
                 } else {
                     System.out.println("Item não encontrado.");
@@ -122,6 +101,7 @@ public class Pedido {
                 listarItens();
                 System.out.print("Digite o ID do item para remover: ");
                 int idItemRemover = scanner.nextInt();
+                assert pedido != null;
                 ItemCardapio itemRemover = pedido.getItens().stream().filter(i -> i.getIdItem() == idItemRemover).findFirst().orElse(null);
                 if (itemRemover != null) {
                     pedido.removerPedido(itemRemover);
@@ -147,13 +127,14 @@ public class Pedido {
         if (mesaSelecionada1 != null && !mesaSelecionada1.isLivre()) {
             Pedido pedido = new Pedido(pedidos.size() + 1, new Date(), "Em andamento");
             System.out.println("Itens no cardápio:");
-            DatabaseInsertExample.listarDataCardapio();
+            ListData.listarDataCardapio();
             System.out.print("Digite o ID do item para adicionar ao pedido: ");
             int idItem = scanner.nextInt();
             ItemCardapio itemPedido = cardapio.stream().filter(i -> i.getIdItem() == idItem).findFirst().orElse(null);
             if (itemPedido != null) {
                 pedido.adicionarPedido(itemPedido);
                 pedidos.add(pedido);
+                enviarCozinha();
             } else {
                 System.out.println("Item não encontrado.");
             }
@@ -162,16 +143,8 @@ public class Pedido {
         }
     }
 
-    //switch 4 no menu
-    public static void enviarCozinha(){
-        int numPedido = scanner.nextInt();
-        Pedido pedido = pedidos.stream().filter(p -> p.getIdPedido() == numPedido).findFirst().orElse(null);
-        if (pedido != null) {
+    public static void enviarCozinha() {
             System.out.println("Pedido enviado para a cozinha.");
-        } else {
-            System.out.println("Pedido não encontrado.");
-        }
-
     }
 
 
