@@ -127,29 +127,29 @@ public class ListData {
         return false;
     }
 
-    public static void listarItensPedido(int idPedido) {
-        String query = "SELECT c.idItem, c.nome, c.descricao, c.preco FROM pedidos_ip " +
-                "JOIN itemcardapio c ON ip.idItem = c.id WHERE ip.idPedido = ?";
-        try (Connection connection = connect()) {
-            assert connection != null;
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-
-                statement.setInt(1, idPedido);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    System.out.println("Itens no Pedido:");
-                    while (resultSet.next()) {
-                        int id = resultSet.getInt("id");
-                        String nome = resultSet.getString("nome");
-                        String descricao = resultSet.getString("descricao");
-                        double preco = resultSet.getDouble("preco");
-                        System.out.printf("ID: %d | Nome: %s | Descricao: %s| Preço: %.2f\n", id, nome, descricao, preco);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro ao listar os itens do pedido: " + e.getMessage());
-        }
-    }
+//    public static void listarItensPedidos(int idPedido) {
+//        String query = "SELECT c.idItem, c.nome, c.preco FROM itemcardapio ip " +
+//                "JOIN pedidos c ON ip.idItem = c.idItem WHERE ip.idPedido = ?";
+//        try (Connection connection = connect()) {
+//            assert connection != null;
+//            try (PreparedStatement statement = connection.prepareStatement(query)) {
+//
+//                statement.setInt(1, idPedido);
+//                try (ResultSet resultSet = statement.executeQuery()) {
+//                    System.out.println("Itens nos Pedidos:");
+//                    while (resultSet.next()) {
+//                        int idItem = resultSet.getInt("idItem");
+//                        String nome = resultSet.getString("nome");
+//                        String descricao = resultSet.getString("descricao");
+//                        double preco = resultSet.getDouble("preco");
+//                        System.out.printf("ID: %d | Nome: %s | Descricao: %s| Preço: %.2f\n", idItem, nome, descricao, preco);
+//                    }
+//                }
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Erro ao listar os itens do pedido: " + e.getMessage());
+//        }
+//    }
 
     public static boolean verificarPedido(int idPedido) {
         String query = "SELECT COUNT(*) AS total FROM pedidos WHERE idPedido = ?";
@@ -168,6 +168,54 @@ public class ListData {
             System.out.println("Erro ao verificar o pedido: " + e.getMessage());
         }
         return false;
+    }
+
+    public static void listarPedidosComDetalhes() {
+        String query = """
+            SELECT\s
+                p.idPedido AS IdPedido,
+                p.idItem AS IdItem,
+                i.nome AS Nome,
+                i.descricao AS Descricao,
+                i.preco AS Preco,
+                m.numero AS NumeroMesa
+            FROM\s
+                pedidos p
+            JOIN\s
+                itemcardapio i ON p.idItem = i.idItem
+            JOIN\s
+                mesa m ON p.numeroMesa = m.numero
+            ORDER BY\s
+                p.idPedido;
+           \s""";
+
+        try (Connection connection = connect()) {
+            assert connection != null;
+            try (PreparedStatement statement = connection.prepareStatement(query);
+                 ResultSet resultSet = statement.executeQuery()) {
+
+                System.out.println("Pedidos Detalhados:");
+                System.out.println("---------------------------------------------------------------");
+                System.out.printf("%-10s %-10s %-20s %-10s %-30s %-5s\n",
+                        "IdPedido", "IdItem","NumeroMesa", "Nome", "Preco", "Descricao");
+                System.out.println("---------------------------------------------------------------");
+
+                while (resultSet.next()) {
+                    int idPedido = resultSet.getInt("IdPedido");
+                    int idItem = resultSet.getInt("IdItem");
+                    int numeroMesa = resultSet.getInt("NumeroMesa");
+                    String nome = resultSet.getString("Nome");
+                    String descricao = resultSet.getString("Descricao");
+                    double preco = resultSet.getDouble("Preco");
+
+
+                    System.out.printf("%-10d %-10d %-5d %-20s %-10.2f %-30s \n",
+                            idPedido, idItem, numeroMesa, nome, preco, descricao);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar os pedidos: " + e.getMessage());
+        }
     }
 
 

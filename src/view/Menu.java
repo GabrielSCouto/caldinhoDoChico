@@ -17,28 +17,16 @@ public class Menu {
     public static void menu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        // Criando algumas mesas iniciais
-        mesas.add(new Mesa(1));
-        mesas.add(new Mesa(2));
-        mesas.add(new Mesa(3));
-        mesas.add(new Mesa(4));
-        mesas.add(new Mesa(5));
-        mesas.add(new Mesa(6));
-        mesas.add(new Mesa(7));
-        mesas.add(new Mesa(8));
-        mesas.add(new Mesa(9));
-        mesas.add(new Mesa(10));
-
-        InsertData.insertDataMesa(1,"livre");
-        InsertData.insertDataMesa(2,"livre");
-        InsertData.insertDataMesa(3,"livre");
-        InsertData.insertDataMesa(4,"livre");
-        InsertData.insertDataMesa(5,"livre");
-        InsertData.insertDataMesa(6,"livre");
-        InsertData.insertDataMesa(7,"livre");
-        InsertData.insertDataMesa(8,"livre");
-        InsertData.insertDataMesa(9,"livre");
-        InsertData.insertDataMesa(10,"livre");
+//        InsertData.insertDataMesa(1,"livre");
+//        InsertData.insertDataMesa(2,"livre");
+//        InsertData.insertDataMesa(3,"livre");
+//        InsertData.insertDataMesa(4,"livre");
+//        InsertData.insertDataMesa(5,"livre");
+//        InsertData.insertDataMesa(6,"livre");
+//        InsertData.insertDataMesa(7,"livre");
+//        InsertData.insertDataMesa(8,"livre");
+//        InsertData.insertDataMesa(9,"livre");
+//        InsertData.insertDataMesa(10,"livre");
 
         Colaborador colaborador = new Colaborador();
         String opcao;
@@ -92,7 +80,7 @@ public class Menu {
                     break;
 
                 case "6":
-//                    colaborador.gerarRelatorioPedidos(pedidos);
+                    ListData.listarPedidosComDetalhes();
                     break;
 
                 case "7":

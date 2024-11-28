@@ -100,8 +100,9 @@ public class Pedido {
 //        }
 //    }
 
-    public static void gerenciarPedido(Scanner scanner) {
+    public static void gerenciarPedido(Scanner scanner) throws SQLException {
         System.out.print("Digite o número do pedido que deseja gerenciar: ");
+        ListData.listarDataPedidos();
         int idPedido = scanner.nextInt();
 
         // Verifica se o pedido existe
@@ -118,7 +119,7 @@ public class Pedido {
 
         switch (opcao) {
             case "1":
-                ListData.listarItensPedido(idPedido);
+                ListData.listarDataPedidos();
                 System.out.print("Digite o ID do item que deseja substituir: ");
                 int idItemAntigo = scanner.nextInt();
                 System.out.print("Digite o ID do novo item: ");
@@ -128,6 +129,7 @@ public class Pedido {
                 break;
 
             case "2":
+                ListData.listarDataPedidos();
                 RemoveData.removeDataPedido(idPedido);
                 scanner.nextLine();
                 break;
