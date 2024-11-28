@@ -3,18 +3,6 @@ import java.util.List;
 
 // Classe model.Colaborador
 public class Colaborador {
-    public void selecionarMesa(Mesa mesa) {
-        System.out.println("model.Mesa selecionada: " + mesa.getNumero());
-    }
-
-    public void itemCardapio(ItemCardapio item) {
-        System.out.println("Item do cardápio: " + item.getNome());
-    }
-
-    public void visualizarSituacaoMesa(Mesa mesa) {
-        String status = mesa.isLivre() ? "Livre" : "Ocupada";
-        System.out.println("model.Mesa " + mesa.getNumero() + " está " + status);
-    }
 
     public void gerarRelatorioPedidos(List<Pedido> pedidos) {
         if (pedidos.isEmpty()) {

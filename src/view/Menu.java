@@ -73,12 +73,12 @@ public class Menu {
                     break;
 
                 case "3":
-                    System.out.print("Digite o número da mesa para fazer pedido: ");
                     Pedido.fazerPedido();
                     break;
 
                 case "4":
                     System.out.print("Digite o número da mesa para efetuar pagamento: ");
+                    ListData.listarDataMesa();
                     int numMesa3 = scanner.nextInt();
                     updateData.desocuparMesa(numMesa3);
                     scanner.nextLine();

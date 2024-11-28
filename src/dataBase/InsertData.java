@@ -55,6 +55,29 @@ public class InsertData {
         }
     }
 
+    public static void insertDataPedido(int idPedido,int idItem, int numeroMesa) {
+        String query = "insert into pedidos values (?,?,?) ";
+
+        try (Connection connection = connect()) {
+            assert connection != null;
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+                statement.setInt(1, idPedido);
+                statement.setInt(2, idItem);
+                statement.setInt(3, numeroMesa);
+
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    System.out.println("Inserção bem-sucedida!");
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
+        }
+
+    }
+
 
 
 

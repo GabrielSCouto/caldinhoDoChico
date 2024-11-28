@@ -62,4 +62,67 @@ public class ListData {
             System.out.println("Erro ao listar mesas: " + e.getMessage());
         }
     }
+
+    public void listarDataPedidos() throws SQLException {
+        String query = "select * from pedidos";
+        try (Connection connection = connect()) {
+            assert connection != null;
+            try (PreparedStatement statement = connection.prepareStatement(query);
+
+                 ResultSet resultSet = statement.executeQuery()) {
+
+                System.out.println("Lista de pedidos: ");
+                System.out.println("-----------------------------------------");
+
+                while (resultSet.next()) {
+                    int idPedido = resultSet.getInt("idPedido");
+                    int numeroMesa = resultSet.getInt("numeroMesa");
+                    int idItem = resultSet.getInt("idItem");
+
+                    System.out.printf("ID do pedido: %d\nID do item: %d\nQuantidade: %d\n", idPedido, numeroMesa, idItem);
+                    System.out.println("-----------------------------------------");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar os pedidos: " + e.getMessage());
+        }
+
+    }
+
+    public static boolean verificarMesaOcupada(int numeroMesa) {
+        String query = "SELECT livre FROM mesa WHERE numero = ?";
+        try (Connection connection = connect()) {
+            assert connection != null;
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+                statement.setInt(1, numeroMesa);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return !resultSet.getBoolean("livre");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar o status da mesa: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public static boolean verificarItemCardapio(int iditem) {
+        String query = "SELECT COUNT(*) AS total FROM itemcardapio WHERE iditem = ?";
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, iditem);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("total") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar o item no cardápio: " + e.getMessage());
+        }
+        return false;
+    }
+
 }

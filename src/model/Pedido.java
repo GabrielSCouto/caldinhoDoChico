@@ -1,24 +1,18 @@
 package model;
 
-import dataBase.DataBaseConnection;
 import dataBase.*;
 import view.Menu;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-
-import static model.ItemCardapio.cardapio;
 
 
 public class Pedido {
     static Scanner scanner = new Scanner(System.in);
 
     private int idPedido;
-    private Date dataHora;
-    private String status;  // "Em andamento", "Concluido"
     private static List<ItemCardapio> itens;
 
     // estavam em MENU:
@@ -26,19 +20,13 @@ public class Pedido {
     public static List<Pedido> pedidos = new ArrayList<>();
 
 
-    public Pedido(int idPedido, Date dataHora, String status) {
+    public Pedido(int idPedido) {
         this.idPedido = idPedido;
-        this.dataHora = dataHora;
-        this.status = status;
         itens = new ArrayList<>();
     }
 
     public int getIdPedido() {
         return idPedido;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     public List<ItemCardapio> getItens() {
@@ -121,22 +109,49 @@ public class Pedido {
     }
 
     //switch 3 no menu
+//    public static void fazerPedido() throws SQLException {
+//        int numMesa2 = scanner.nextInt();
+//        Mesa mesaSelecionada1 = mesas.stream().filter(m -> m.getNumero() == numMesa2).findFirst().orElse(null);
+//        if (mesaSelecionada1 != null && !mesaSelecionada1.isLivre()) {
+//            Pedido pedido = new Pedido(pedidos.size() + 1);
+//            System.out.println("Itens no cardápio:");
+//            listarDataCardapio();
+//            System.out.print("Digite o ID do item para adicionar ao pedido: ");
+//            int idItem = scanner.nextInt();
+//            ItemCardapio itemPedido = cardapio.stream().filter(i -> i.getIdItem() == idItem).findFirst().orElse(null);
+//            if (itemPedido != null) {
+//                pedido.adicionarPedido(itemPedido);
+//                pedidos.add(pedido);
+//                enviarCozinha();
+//            } else {
+//                System.out.println("Item não encontrado.");
+//            }
+//        } else {
+//            System.out.println("Mesa não está ocupada ou não encontrada.");
+//        }
+//    }
+
     public static void fazerPedido() throws SQLException {
-        int numMesa2 = scanner.nextInt();
-        Mesa mesaSelecionada1 = mesas.stream().filter(m -> m.getNumero() == numMesa2).findFirst().orElse(null);
-        if (mesaSelecionada1 != null && !mesaSelecionada1.isLivre()) {
-            Pedido pedido = new Pedido(pedidos.size() + 1, new Date(), "Em andamento");
+        System.out.print("Digite o número da mesa: ");
+        int numeroMesa = scanner.nextInt();
+
+
+        // Verifica se a mesa está ocupada
+        if (ListData.verificarMesaOcupada(numeroMesa)) {
+            System.out.println("Mesa encontrada e está ocupada.");
+
             System.out.println("Itens no cardápio:");
-            ListData.listarDataCardapio();
+            ListData.listarDataCardapio(); // Método que exibe os itens do cardápio
+
             System.out.print("Digite o ID do item para adicionar ao pedido: ");
             int idItem = scanner.nextInt();
-            ItemCardapio itemPedido = cardapio.stream().filter(i -> i.getIdItem() == idItem).findFirst().orElse(null);
-            if (itemPedido != null) {
-                pedido.adicionarPedido(itemPedido);
-                pedidos.add(pedido);
+
+            // Verifica se o item existe no cardápio
+            if (ListData.verificarItemCardapio(idItem)) {
+                InsertData.insertDataPedido(0,idItem,numeroMesa); // Insere o pedido no banco
                 enviarCozinha();
             } else {
-                System.out.println("Item não encontrado.");
+                System.out.println("Item não encontrado no cardápio.");
             }
         } else {
             System.out.println("Mesa não está ocupada ou não encontrada.");
