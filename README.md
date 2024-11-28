@@ -7,6 +7,8 @@ ARQUITETURA UTILIZADA:
 
 Utilizamos a arquitetura de projetos MVC (Model, view, controller) para organizar as classes do projeto
 
+    <img src="MVC.png" alt="MVC architecture screenshot">
+
 
 Segue o diagrama de casos de uso do projeto:
 
