@@ -127,29 +127,7 @@ public class ListData {
         return false;
     }
 
-//    public static void listarItensPedidos(int idPedido) {
-//        String query = "SELECT c.idItem, c.nome, c.preco FROM itemcardapio ip " +
-//                "JOIN pedidos c ON ip.idItem = c.idItem WHERE ip.idPedido = ?";
-//        try (Connection connection = connect()) {
-//            assert connection != null;
-//            try (PreparedStatement statement = connection.prepareStatement(query)) {
-//
-//                statement.setInt(1, idPedido);
-//                try (ResultSet resultSet = statement.executeQuery()) {
-//                    System.out.println("Itens nos Pedidos:");
-//                    while (resultSet.next()) {
-//                        int idItem = resultSet.getInt("idItem");
-//                        String nome = resultSet.getString("nome");
-//                        String descricao = resultSet.getString("descricao");
-//                        double preco = resultSet.getDouble("preco");
-//                        System.out.printf("ID: %d | Nome: %s | Descricao: %s| Preço: %.2f\n", idItem, nome, descricao, preco);
-//                    }
-//                }
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Erro ao listar os itens do pedido: " + e.getMessage());
-//        }
-//    }
+
 
     public static boolean verificarPedido(int idPedido) {
         String query = "SELECT COUNT(*) AS total FROM pedidos WHERE idPedido = ?";

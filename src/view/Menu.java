@@ -8,10 +8,6 @@ import model.*;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-//importado pra adicao manual de mesas mesas.add funcionar
-//esses to tentando saber pq da erro ainda (DESCOBRI, TEM Q DEIXAR PUBLIC)
-import static model.ItemCardapio.cardapio;
-import static model.Pedido.pedidos;
 
 public class Menu {
     public static void menu() throws SQLException {
@@ -28,9 +24,8 @@ public class Menu {
 //        InsertData.insertDataMesa(9,"livre");
 //        InsertData.insertDataMesa(10,"livre");
 
-        Colaborador colaborador = new Colaborador();
-        String opcao;
 
+        String opcao;
 
         //IMPRIME MENU
         do {
@@ -87,7 +82,7 @@ public class Menu {
                     Pedido.gerenciarPedido(scanner);
                     break;
                 case "8":
-                    colaborador.sair();
+                    System.out.println("Saindo...");
                     break;
 
                 default:
