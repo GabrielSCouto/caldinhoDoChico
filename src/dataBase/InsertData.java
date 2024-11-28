@@ -63,8 +63,8 @@ public class InsertData {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
 
                 statement.setInt(1, idPedido);
-                statement.setInt(2, idItem);
-                statement.setInt(3, numeroMesa);
+                statement.setInt(2,numeroMesa);
+                statement.setInt(3, idItem);
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {

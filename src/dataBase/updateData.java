@@ -37,4 +37,24 @@ public class updateData {
             System.out.println("Erro ao alterar dados: " + e.getMessage());
         }
     }
+
+    public static void atualizarItensDoPedido(int idPedido, int idItemAntigo, int idItemNovo) {
+        String query = "UPDATE pedidos SET idItem = ? WHERE idPedido = ? AND idItem = ?";
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, idItemNovo);
+            statement.setInt(2, idPedido);
+            statement.setInt(3, idItemAntigo);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Itens do pedido atualizados com sucesso!");
+            } else {
+                System.out.println("Item não encontrado no pedido ou atualização falhou.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar itens do pedido: " + e.getMessage());
+        }
+    }
 }

@@ -27,9 +27,9 @@ public class RemoveData {
         }
     }
 
-    public static void removeDataPedido (int idPedido) {
 
-        String query = "delete from pedido_itemcardapio where idPedido = ?";
+    public static void removeDataPedido (int idPedido) {
+        String query = "delete from pedidos where idPedido = ?";
 
         try (Connection connection = connect()) {
             assert connection != null;

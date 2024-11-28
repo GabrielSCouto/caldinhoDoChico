@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 //importado pra adicao manual de mesas mesas.add funcionar
-import static model.Pedido.mesas;
 //esses to tentando saber pq da erro ainda (DESCOBRI, TEM Q DEIXAR PUBLIC)
 import static model.ItemCardapio.cardapio;
 import static model.Pedido.pedidos;
@@ -98,7 +97,7 @@ public class Menu {
                     break;
 
                 case "7":
-                    Pedido.gerenciarPedido(scanner,pedidos,cardapio);
+                    Pedido.gerenciarPedido(scanner);
                     break;
                 case "8":
                     colaborador.sair();
