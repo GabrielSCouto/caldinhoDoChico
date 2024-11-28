@@ -1,6 +1,5 @@
 package view;
 
-import dataBase.DataBaseConnection;
 import dataBase.*;
 
 import dataBase.updateData;
@@ -93,7 +92,7 @@ public class Menu {
                     break;
 
                 case "6":
-                    colaborador.gerarRelatorioPedidos(pedidos);
+//                    colaborador.gerarRelatorioPedidos(pedidos);
                     break;
 
                 case "7":

@@ -11,36 +11,9 @@ import java.util.Scanner;
 
 public class Pedido {
     static Scanner scanner = new Scanner(System.in);
-
-    private int idPedido;
-    private static List<ItemCardapio> itens;
-
-
     public static List<Pedido> pedidos = new ArrayList<>();
 
 
-    public Pedido(int idPedido) {
-        this.idPedido = idPedido;
-        itens = new ArrayList<>();
-    }
-
-    public int getIdPedido() {
-        return idPedido;
-    }
-
-    public List<ItemCardapio> getItens() {
-        return itens;
-    }
-
-    //PODE SER MESMO METODO DE FAZER PEDIDO????
-    public void adicionarPedido(ItemCardapio item) {
-        itens.add(item);
-        System.out.println("Item adicionado ao pedido: " + item.getNome());
-    }
-    public void removerPedido(ItemCardapio item) {
-        itens.remove(item);
-        System.out.println("Item removido do pedido: " + item.getNome());
-    }
 
 //    public static void listarItens() {
 //        System.out.println("Itens no pedido:");
