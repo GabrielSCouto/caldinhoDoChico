@@ -173,10 +173,10 @@ public class ListData {
                  ResultSet resultSet = statement.executeQuery()) {
 
                 System.out.println("Pedidos Detalhados:");
-                System.out.println("---------------------------------------------------------------");
-                System.out.printf("%-10s %-10s %-20s %-10s %-30s %-5s\n",
+                System.out.println("------------------------------------------------------------------------------------------------------------------------------");
+                System.out.printf("%-10s %-10s %-20s %-20s %-30s %-5s\n",
                         "IdPedido", "IdItem","NumeroMesa", "Nome", "Preco", "Descricao");
-                System.out.println("---------------------------------------------------------------");
+                System.out.println("------------------------------------------------------------------------------------------------------------------------------");
 
                 while (resultSet.next()) {
                     int idPedido = resultSet.getInt("IdPedido");
@@ -187,7 +187,7 @@ public class ListData {
                     double preco = resultSet.getDouble("Preco");
 
 
-                    System.out.printf("%-10d %-10d %-5d %-20s %-10.2f %-30s \n",
+                    System.out.printf("%-10d %-10d %-10d %-30s R$%-10.2f %-30s \n",
                             idPedido, idItem, numeroMesa, nome, preco, descricao);
                 }
             }
