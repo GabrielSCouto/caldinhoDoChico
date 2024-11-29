@@ -3,6 +3,7 @@ package model;
 import dataBase.*;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -10,7 +11,7 @@ public class Pedido {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static void gerenciarPedido(Scanner scanner) throws SQLException {
+    public static void gerenciarPedido(Scanner scanner) throws SQLException, InputMismatchException {
         System.out.print("Digite o número do pedido que deseja gerenciar: ");
         ListData.listarDataPedidos();
         int idPedido = scanner.nextInt();
@@ -51,7 +52,7 @@ public class Pedido {
     }
 
 
-    public static void fazerPedido() throws SQLException {
+    public static void fazerPedido() throws SQLException, InputMismatchException {
         System.out.print("Digite o número da mesa: ");
         int numeroMesa = scanner.nextInt();
 

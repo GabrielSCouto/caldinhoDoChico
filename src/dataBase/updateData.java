@@ -3,15 +3,41 @@ package dataBase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import static dataBase.DataBaseConnection.connect;
 
 public class updateData {
 
 
-    public static void ocuparMesa(int numero) {
-        String query = "update mesa set livre = 'ocupado' where numero = ?";
-        situacaoMesa(numero, query);
+//    public static void ocuparMesa(int numero) {
+//        String query = "update mesa set livre = 'ocupado' where numero = ?";
+//        situacaoMesa(numero, query);
+//    }
+
+    public static void ocuparMesa() {
+        int numeroMesa = solicitarNumeroMesa(); // Obtém o número da mesa validado
+        String query = "UPDATE mesa SET livre = 'Ocupado' WHERE numero = ?";
+        situacaoMesa(numeroMesa, query);
+    }
+
+    private static int solicitarNumeroMesa() {
+        Scanner scanner = new Scanner(System.in);
+        int numeroMesa = -1; // Valor inicial para controle
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            try {
+                System.out.print("Digite o número da mesa que deseja ocupar: ");
+                numeroMesa = scanner.nextInt();
+                entradaValida = true; // Entrada válida, sai do loop
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Entrada inválida! Por favor, digite um número.");
+                scanner.nextLine(); // Limpa o buffer do scanner
+            }
+        }
+
+        return numeroMesa;
     }
 
     public static void desocuparMesa(int numero) {
@@ -19,22 +45,40 @@ public class updateData {
         situacaoMesa(numero, query);
     }
 
-    public static void situacaoMesa(int numero, String query) {
-        try (Connection connection = connect()) {
-            assert connection != null;
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
+//    public static void situacaoMesa(int numero, String query) {
+//        try (Connection connection = connect()) {
+//            assert connection != null;
+//            try (PreparedStatement statement = connection.prepareStatement(query)) {
+//
+//                statement.setInt(1, numero);
+//
+//                int rowsUpdated = statement.executeUpdate();
+//                if (rowsUpdated > 0) {
+//                    System.out.println("Status da mesa atualizado com sucesso!");
+//                } else {
+//                    System.out.println("Mesa não encontrada para atualizar.");
+//                }
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Erro ao alterar dados: " + e.getMessage());
+//        }
+//    }
 
-                statement.setInt(1, numero);
+    private static void situacaoMesa(int numero, String query) {
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-                int rowsUpdated = statement.executeUpdate();
-                if (rowsUpdated > 0) {
-                    System.out.println("Status da mesa atualizado com sucesso!");
-                } else {
-                    System.out.println("Mesa não encontrada para atualizar.");
-                }
+            statement.setInt(1, numero);
+            int rowsUpdated = statement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Mesa " + numero + " foi marcada como ocupada com sucesso!");
+            } else {
+                System.out.println("Mesa " + numero + " não encontrada. Verifique o número e tente novamente.");
             }
+
         } catch (SQLException e) {
-            System.out.println("Erro ao alterar dados: " + e.getMessage());
+            System.err.println("Erro ao atualizar a mesa: " + e.getMessage());
         }
     }
 

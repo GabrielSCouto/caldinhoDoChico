@@ -4,6 +4,7 @@ import dataBase.*;
 
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // Classe model.ItemCardapio
@@ -11,7 +12,7 @@ public class ItemCardapio {
     static Scanner scanner = new Scanner(System.in);
 
     //switch 6 no menu
-    public static void gerenciarCardapio() throws SQLException {
+    public static void gerenciarCardapio() throws SQLException, InputMismatchException {
         String opcaoCardapio = scanner.nextLine();
         int idItem;
         switch (opcaoCardapio) {

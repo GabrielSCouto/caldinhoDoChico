@@ -6,11 +6,12 @@ import dataBase.updateData;
 import model.*;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class Menu {
-    public static void menu() throws SQLException {
+    public static void menu() throws SQLException, InputMismatchException {
         Scanner scanner = new Scanner(System.in);
         String opcao;
 
@@ -31,9 +32,9 @@ public class Menu {
             switch (opcao) {
                 case "1":
                     ListData.listarDataMesa();
-                    System.out.print("Digite o número da mesa para ocupar: \n");
-                    int numMesa1 = scanner.nextInt();
-                    updateData.ocuparMesa(numMesa1);
+//                    System.out.print("Digite o número da mesa para ocupar: \n");
+//                    int numMesa1 = scanner.nextInt();
+                    updateData.ocuparMesa();
                     scanner.nextLine();
                     break;
                 case "2":
