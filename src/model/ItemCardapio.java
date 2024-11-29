@@ -57,7 +57,7 @@ public class ItemCardapio {
     //switch 6 no menu
     public static void gerenciarCardapio() throws SQLException {
         String opcaoCardapio = scanner.nextLine();
-
+        int idItem;
         switch (opcaoCardapio) {
             case "1":
                 System.out.print("Digite o nome do item: ");
@@ -75,7 +75,7 @@ public class ItemCardapio {
             case "2":
                 ListData.listarDataCardapio();
                 System.out.print("Digite o ID do item para remover: (caso não haja nenhum, clique 0): ");
-                int idItem = scanner.nextInt();
+                idItem = scanner.nextInt();
                 if (idItem == 0){
                     break;
                 } else {
@@ -84,6 +84,23 @@ public class ItemCardapio {
                 }
                 break;
             case "3":
+                System.out.print("Digite o ID do item a ser atualizado: ");
+                idItem = scanner.nextInt();
+                scanner.nextLine(); // Consumir nova linha
+
+                System.out.print("Digite o novo nome: ");
+                String novoNome = scanner.nextLine();
+
+                System.out.print("Digite a nova descrição: ");
+                String novaDescricao = scanner.nextLine();
+
+                System.out.print("Digite o novo preço: ");
+                double novoPreco = scanner.nextDouble();
+
+                // Chama o método para atualizar no banco
+                updateData.atualizarItemCardapio(idItem, novoNome, novaDescricao, novoPreco);
+                break;
+            case "4":
                 ListData.listarDataCardapio();
         }
     }

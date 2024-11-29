@@ -9,6 +9,7 @@ import static dataBase.DataBaseConnection.connect;
 public class RemoveData {
 
     public static void removeDataCardapio(int idItem) {
+        //removeDataPedido(idItem);
         String query = "delete from itemcardapio where idItem = ?";
         try (Connection connection = connect()) {
             assert connection != null;

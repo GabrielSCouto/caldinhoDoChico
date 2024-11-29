@@ -196,9 +196,29 @@ public class ListData {
         }
     }
 
-
-
-
+    //atualizar item no cardapio
+//    public static void atualizarItemCardapio(int idItem, String nome, String descricao, double preco) {
+//        String query = "UPDATE itemcardapio SET nome = ?, descricao = ?, preco = ? WHERE idItem = ?";
+//
+//        try (Connection connection = DataBaseConnection.connect()) {
+//            assert connection != null;
+//            try (PreparedStatement statement = connection.prepareStatement(query)) {
+//                statement.setString(1, nome); // Nome atualizado
+//                statement.setString(2, descricao); // Descrição atualizada
+//                statement.setDouble(3, preco); // Preço atualizado
+//                statement.setInt(4, idItem); // ID do item a ser atualizado
+//
+//                int rowsAffected = statement.executeUpdate();
+//                if (rowsAffected > 0) {
+//                    System.out.println("Item atualizado com sucesso!");
+//                } else {
+//                    System.out.println("Nenhum item encontrado com o ID fornecido.");
+//                }
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Erro ao atualizar o item do cardápio: " + e.getMessage());
+//        }
+//    }
 
 
 

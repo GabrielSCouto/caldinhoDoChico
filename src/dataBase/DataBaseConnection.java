@@ -11,7 +11,7 @@ public class DataBaseConnection {
     public static Connection connect() {
         try {
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conexão bem-sucedida!");
+            System.out.println();
             return connection;
         } catch (SQLException e) {
             System.out.println("Erro ao conectar ao banco de dados: " + e.getMessage());

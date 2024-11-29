@@ -12,19 +12,6 @@ import java.util.Scanner;
 public class Menu {
     public static void menu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
-
-//        InsertData.insertDataMesa(1,"livre");
-//        InsertData.insertDataMesa(2,"livre");
-//        InsertData.insertDataMesa(3,"livre");
-//        InsertData.insertDataMesa(4,"livre");
-//        InsertData.insertDataMesa(5,"livre");
-//        InsertData.insertDataMesa(6,"livre");
-//        InsertData.insertDataMesa(7,"livre");
-//        InsertData.insertDataMesa(8,"livre");
-//        InsertData.insertDataMesa(9,"livre");
-//        InsertData.insertDataMesa(10,"livre");
-
-
         String opcao;
 
         //IMPRIME MENU
@@ -69,7 +56,8 @@ public class Menu {
                     System.out.println("--- Gerenciar Cardápio ---");
                     System.out.println("1. Adicionar Item");
                     System.out.println("2. Remover Item");
-                    System.out.println("3. Listar Cardápio\n");
+                    System.out.println("3. Atualizar Item");
+                    System.out.println("4. Listar Cardápio\n");
                     System.out.print("Escolha uma opção: ");
                     ItemCardapio.gerenciarCardapio();
                     break;

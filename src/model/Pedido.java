@@ -26,6 +26,7 @@ public class Pedido {
         System.out.println("2. Apagar Pedido");
         System.out.print("Escolha uma opção: ");
         String opcao = scanner.next();
+        scanner.nextLine();
 
         switch (opcao) {
             case "1":
