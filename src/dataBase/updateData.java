@@ -45,42 +45,25 @@ public class updateData {
         situacaoMesa(numero, query);
     }
 
-//    public static void situacaoMesa(int numero, String query) {
-//        try (Connection connection = connect()) {
-//            assert connection != null;
-//            try (PreparedStatement statement = connection.prepareStatement(query)) {
-//
-//                statement.setInt(1, numero);
-//
-//                int rowsUpdated = statement.executeUpdate();
-//                if (rowsUpdated > 0) {
-//                    System.out.println("Status da mesa atualizado com sucesso!");
-//                } else {
-//                    System.out.println("Mesa não encontrada para atualizar.");
-//                }
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Erro ao alterar dados: " + e.getMessage());
-//        }
-//    }
+    public static void situacaoMesa(int numero, String query) {
+        try (Connection connection = connect()) {
+            assert connection != null;
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
 
-    private static void situacaoMesa(int numero, String query) {
-        try (Connection connection = connect();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setInt(1, numero);
 
-            statement.setInt(1, numero);
-            int rowsUpdated = statement.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                System.out.println("Mesa " + numero + " foi marcada como ocupada com sucesso!");
-            } else {
-                System.out.println("Mesa " + numero + " não encontrada. Verifique o número e tente novamente.");
+                int rowsUpdated = statement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Status da mesa atualizado com sucesso!");
+                } else {
+                    System.out.println("Mesa não encontrada para atualizar.");
+                }
             }
-
         } catch (SQLException e) {
-            System.err.println("Erro ao atualizar a mesa: " + e.getMessage());
+            System.out.println("Erro ao alterar dados: " + e.getMessage());
         }
     }
+
 
     public static void atualizarItensDoPedido(int idPedido, int idItemAntigo, int idItemNovo) {
         String query = "UPDATE pedidos SET idItem = ? WHERE idPedido = ? AND idItem = ?";

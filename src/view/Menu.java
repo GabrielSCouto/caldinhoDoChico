@@ -1,7 +1,6 @@
 package view;
 
 import dataBase.*;
-
 import dataBase.updateData;
 import model.*;
 
@@ -9,13 +8,12 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
 public class Menu {
-    public static void menu() throws SQLException, InputMismatchException {
+    public static void menu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         String opcao;
 
-        //IMPRIME MENU
+        // IMPRIME MENU
         do {
             System.out.println("\n--- Menu do Colaborador ---");
             System.out.println("1. Selecionar Mesa para ocupar");
@@ -29,53 +27,65 @@ public class Menu {
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextLine();
 
-            switch (opcao) {
-                case "1":
-                    ListData.listarDataMesa();
-//                    System.out.print("Digite o número da mesa para ocupar: \n");
-//                    int numMesa1 = scanner.nextInt();
-                    updateData.ocuparMesa();
-                    scanner.nextLine();
-                    break;
-                case "2":
-                    ListData.listarDataMesa();
-                    break;
+            try {
+                switch (opcao) {
+                    case "1":
+                        ListData.listarDataMesa();
+                        System.out.println("Digite o número da mesa a selecionar: ");
+                        int numeroMesa1 = scanner.nextInt();
+                        scanner.nextLine();
+                        updateData.ocuparMesa(numeroMesa1);
+                        break;
+                    case "2":
+                        ListData.listarDataMesa();
+                        break;
 
-                case "3":
-                    Pedido.fazerPedido();
-                    break;
+                    case "3":
+                        Pedido.fazerPedido();
+                        break;
 
-                case "4":
-                    System.out.print("Digite o número da mesa para efetuar pagamento: ");
-                    ListData.listarDataMesa();
-                    int numMesa3 = scanner.nextInt();
-                    updateData.desocuparMesa(numMesa3);
-                    scanner.nextLine();
-                    break;
+                    case "4":
+                        try {
+                            System.out.print("Digite o número da mesa para efetuar pagamento: ");
+                            ListData.listarDataMesa();
+                            int numMesa3 = scanner.nextInt();
+                            updateData.desocuparMesa(numMesa3);
+                            scanner.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Entrada inválida. Certifique-se de digitar um número inteiro.");
+                            scanner.nextLine();
+                        }
+                        break;
 
-                case "5":
-                    System.out.println("--- Gerenciar Cardápio ---");
-                    System.out.println("1. Adicionar Item");
-                    System.out.println("2. Remover Item");
-                    System.out.println("3. Atualizar Item");
-                    System.out.println("4. Listar Cardápio\n");
-                    System.out.print("Escolha uma opção: ");
-                    ItemCardapio.gerenciarCardapio();
-                    break;
+                    case "5":
+                        System.out.println("--- Gerenciar Cardápio ---");
+                        System.out.println("1. Adicionar Item");
+                        System.out.println("2. Remover Item");
+                        System.out.println("3. Atualizar Item");
+                        System.out.println("4. Listar Cardápio\n");
+                        System.out.print("Escolha uma opção: ");
+                        ItemCardapio.gerenciarCardapio();
+                        break;
 
-                case "6":
-                    ListData.listarPedidosComDetalhes();
-                    break;
+                    case "6":
+                        ListData.listarPedidosComDetalhes();
+                        break;
 
-                case "7":
-                    Pedido.gerenciarPedido(scanner);
-                    break;
-                case "8":
-                    System.out.println("Saindo...");
-                    break;
+                    case "7":
+                        Pedido.gerenciarPedido(scanner);
+                        break;
 
-                default:
-                    break;
+                    case "8":
+                        System.out.println("Saindo...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Tente novamente.");
+                scanner.nextLine();
             }
         } while (!opcao.equals("8"));
     }
