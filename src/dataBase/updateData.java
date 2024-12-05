@@ -9,13 +9,7 @@ import static dataBase.DataBaseConnection.connect;
 
 public class updateData {
 
-
-//    public static void ocuparMesa(int numero) {
-//        String query = "update mesa set livre = 'ocupado' where numero = ?";
-//        situacaoMesa(numero, query);
-//    }
-
-    public static void ocuparMesa() {
+    public static void ocuparMesa(int numeroMesa1) {
         int numeroMesa = solicitarNumeroMesa(); // Obtém o número da mesa validado
         String query = "UPDATE mesa SET livre = 'Ocupado' WHERE numero = ?";
         situacaoMesa(numeroMesa, query);
@@ -23,17 +17,17 @@ public class updateData {
 
     private static int solicitarNumeroMesa() {
         Scanner scanner = new Scanner(System.in);
-        int numeroMesa = -1; // Valor inicial para controle
+        int numeroMesa = -1;
         boolean entradaValida = false;
 
         while (!entradaValida) {
             try {
                 System.out.print("Digite o número da mesa que deseja ocupar: ");
                 numeroMesa = scanner.nextInt();
-                entradaValida = true; // Entrada válida, sai do loop
+                entradaValida = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Entrada inválida! Por favor, digite um número.");
-                scanner.nextLine(); // Limpa o buffer do scanner
+                scanner.nextLine();
             }
         }
 

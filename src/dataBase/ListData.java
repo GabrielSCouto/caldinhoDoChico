@@ -49,7 +49,6 @@ public class ListData {
                 System.out.println("Lista de mesas:");
                 System.out.println("-----------------------------------------");
 
-                // Itera pelos resultados
                 while (resultSet.next()) {
                     int numero = resultSet.getInt("numero");
                     String livre = resultSet.getString("livre");

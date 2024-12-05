@@ -6,14 +6,13 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-// Classe model.ItemCardapio
+
 public class ItemCardapio {
     static Scanner scanner = new Scanner(System.in);
 
-    // switch 6 no menu
     public static void gerenciarCardapio() throws SQLException {
         try {
-            String opcaoCardapio = scanner.nextLine(); // Lê a opção escolhida no menu do cardápio
+            String opcaoCardapio = scanner.nextLine();
             int idItem;
             switch (opcaoCardapio) {
                 case "1":
@@ -27,10 +26,10 @@ public class ItemCardapio {
                         double preco = scanner.nextDouble();
                         InsertData.insertDataCardapio(0, nome, descricao, preco);
                         System.out.println("Item adicionado ao cardápio.");
-                        scanner.nextLine(); // Limpa o buffer
+                        scanner.nextLine();
                     } catch (InputMismatchException e) {
                         System.out.println("Entrada inválida para o preço. Certifique-se de digitar um número.");
-                        scanner.nextLine(); // Limpa o buffer após erro
+                        scanner.nextLine();
                     }
                     break;
 
@@ -44,11 +43,11 @@ public class ItemCardapio {
                             break;
                         } else {
                             RemoveData.removeDataCardapio(idItem);
-                            scanner.nextLine(); // Limpa o buffer após operação
+                            scanner.nextLine();
                         }
                     } catch (InputMismatchException e) {
                         System.out.println("Entrada inválida para o ID. Certifique-se de digitar um número inteiro.");
-                        scanner.nextLine(); // Limpa o buffer após erro
+                        scanner.nextLine();
                     }
                     break;
 
@@ -57,7 +56,7 @@ public class ItemCardapio {
                         // Solicita os dados para atualizar o item do cardápio
                         System.out.print("Digite o ID do item a ser atualizado: ");
                         idItem = scanner.nextInt();
-                        scanner.nextLine(); // Limpa o buffer
+                        scanner.nextLine();
 
                         System.out.print("Digite o novo nome: ");
                         String novoNome = scanner.nextLine();
@@ -72,7 +71,7 @@ public class ItemCardapio {
                         updateData.atualizarItemCardapio(idItem, novoNome, novaDescricao, novoPreco);
                     } catch (InputMismatchException e) {
                         System.out.println("Entrada inválida para ID ou preço. Certifique-se de digitar números corretamente.");
-                        scanner.nextLine(); // Limpa o buffer após erro
+                        scanner.nextLine();
                     }
                     break;
 
@@ -86,7 +85,7 @@ public class ItemCardapio {
             }
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Certifique-se de digitar as informações corretamente.");
-            scanner.nextLine(); // Limpa o buffer após erro geral
+            scanner.nextLine();
         }
     }
 }

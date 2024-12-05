@@ -13,7 +13,6 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         String opcao;
 
-        // IMPRIME MENU
         do {
             System.out.println("\n--- Menu do Colaborador ---");
             System.out.println("1. Selecionar Mesa para ocupar");
